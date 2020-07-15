@@ -7,5 +7,6 @@
   ],
   "format": "minimal",
   "sourceLocale": "en",
+  "fallbackLocale": "en",
   "compileNamespace": "cjs"
 }
