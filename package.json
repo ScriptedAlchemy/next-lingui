@@ -7,15 +7,16 @@
     "start": "NODE_ENV=production node server/index.js",
     "add-locale": "lingui add-locale",
     "extract": "lingui extract",
-    "compile": "lingui compile"
+    "compile": "lingui compile",
+    "postinstall": "cp patched/index.js node_modules/@lingui/loader"
   },
   "resolutions": {
     "next": "^9.4.5-canary.34",
     "webpack": "^5.0.0-beta.22"
   },
   "dependencies": {
-    "@lingui/core": "^2.7.4",
-    "@lingui/loader": "^2.7.4",
+    "@lingui/core": "^2.9.1",
+    "@lingui/loader": "^2.9.1",
     "@lingui/react": "^2.7.4",
     "cookie-parser": "^1.4.4",
     "esm": "^3.2.5",
