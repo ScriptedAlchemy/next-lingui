@@ -4,6 +4,9 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+const requiredType = 'javascript/auto';
+
+
 exports.default = function (source) {
   var options = _loaderUtils2.default.getOptions(this) || {};
 
@@ -12,10 +15,20 @@ exports.default = function (source) {
   // official API is added (https://github.com/webpack/webpack/issues/7057#issuecomment-381883220)
   // See https://github.com/webpack/webpack/issues/7057
   if (JavascriptParser && JavascriptGenerator) {
-    this._module.type = "javascript/auto";
-    this._module.parser = new JavascriptParser();
-    this._module.generator = new JavascriptGenerator();
+    const LoaderDependency = require('webpack/lib/dependencies/LoaderDependency');
+
+      // Try to retrieve the factory used by the LoaderDependency type
+      // which should be the NormalModuleFactory.
+      const factory = this._compilation.dependencyFactories.get(LoaderDependency);
+      if (factory === undefined) {
+        throw new Error('Could not retrieve module factory for type LoaderDependency');
+      }
+
+      this._module.type = requiredType;
+      this._module.generator = factory.getGenerator(requiredType);
+      this._module.parser = factory.getParser(requiredType);
   }
+
 
   var config = (0, _conf.getConfig)({
     configPath: options.config,
